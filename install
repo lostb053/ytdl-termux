@@ -3,9 +3,6 @@ apt update && apt upgrade
 termux-setup-storage
 pkg install python ffmpeg
 pip install yt-dlp
-pip install wget
 
-wget -P ~/ https://raw.githubusercontent.com/lostb053/ytdl-termux/main/ytdl
-
-mv ~/ $PREFIX/bin/ytdl
+echo $(curl -s https://raw.githubusercontent.com/lostb053/ytdl-termux/main/ytdl) >> $PREFIX/bin/ytdl
 chmod +x $PREFIX/bin/ytdl
