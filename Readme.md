@@ -31,4 +31,3 @@ This command separately downloads best video and best audio available and merges
 use -b option to download video with in-built audio and avoid merging
 <br>
 <br>
-![/resources/vid.mp4]
