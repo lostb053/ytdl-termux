@@ -11,8 +11,10 @@ installytdl() {
     echo Updated sucessfully
 }
 
-shutt apt update && apt upgrade -y >> /dev/null
-shutt pkg install python ffmpeg -y >> /dev/null
+shutt apt update -y 2> /dev/null
+shutt apt upgrade -y 2> /dev/null
+shutt pkg install python -y 2> /dev/null
+shutt pkg install ffmpeg -y 2> /dev/null
 pip -qq install yt-dlp
 
 if [[ -f $PREFIX/bin/ytdl ]]
