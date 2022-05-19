@@ -1,6 +1,12 @@
-apt update && apt upgrade
-pkg install python ffmpeg
+apt update && apt upgrade -y
+pkg install python ffmpeg -y
 pip -qq install yt-dlp
 
-echo $(curl -s https://raw.githubusercontent.com/lostb053/ytdl-termux/main/ytdl) >> $PREFIX/bin/ytdl
+if [[ -f $PREFIX/bin/ytdl ]]
+then
+    rm $PREFIX/bin/ytdl
+fi
+
+curl -o $PREFIX/bin/ytdl -fsSL https://raw.githubusercontent.com/lostb053/ytdl-termux/main/ytdl
 chmod +x $PREFIX/bin/ytdl
+
