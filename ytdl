@@ -1,4 +1,47 @@
-#!/bin/bash
+#!/bin/bash⁸
+
+v=$(sed -n '1p' $PREFIX/etc/ytdlversion)
+
+Update()
+{
+    bash -c "$(curl -fsSL https://bit.ly/install-ytdl-termux)"
+}
+
+Help()
+{
+    echo "A simple script written for easy downloading videos from YouTube using yt-dlp"
+    echo "version - v$v  Copyright (c) 2022 lostb053"
+    echo
+    echo "USAGE:  ytdl [OPTIONS]"
+    echo
+    echo "ytdl        invokes the function, no required options"
+    echo "-u          option to update this program"
+    echo "-h          to print this help message"
+    echo "-a link     to download audio, no playlist links"
+    echo "-b link     download best video (with in-built audio) available, no playlist links"
+    echo
+    echo "This command separately downloads best video and best audio available and merges them"
+    echo "use -b option to download video with in-built audio and avoid merging"
+}
+
+while getopts ":uhb:a:" option; do
+    case $option in
+        u)
+            Update
+            exit;;
+        h)
+            Help
+            exit;;
+        b)
+            link=${OPTARG}
+            yt-dlp -f b --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-mtime --no-post-overwrites --geo-bypass --ignore-errors --no-playlist $link
+            exit;;
+        a)
+            link=${OPTARG}
+            yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-mtime --geo-bypass --ignore-errors --no-playlist $link
+            exit;;
+    esac
+done
 
 echo
 echo -e "Do you wish to download Video or Audio?\n1. Video\n2. Audio"

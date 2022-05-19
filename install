@@ -1,4 +1,4 @@
-shutt () {                                                                  ─╯
+shutt () {
     { "$@" || return $?; } | while read -r line; do
         :
     done
@@ -10,8 +10,23 @@ pip -qq install yt-dlp
 
 if [[ -f $PREFIX/bin/ytdl ]]
 then
-    rm $PREFIX/bin/ytdl
+    if ! [[ -f $PREFIX/etc/ytdlversion ]]
+    then
+        rm $PREFIX/bin/ytdl
+    else
+        v=$(curl -fsSL https://bit.ly/ytdl-version)
+        cv=$(sed -n '1p' $PREFIX/etc/ytdlversion)
+        if ! [[ v -eq cv ]]
+        then
+            rm $PREFIX/bin/ytdl $PREFIX/etc/ytdlversion
+            curl -o $PREFIX/bin/ytdl -fsSL https://bit.ly/ytdl-main
+            curl -o $PREFIX/etc/ytdlversion -fsSL https://bit.ly/ytdl-version
+            chmod +x $PREFIX/bin/ytdl
+            echo Updated sucessfully
+        else
+            echo Already Upto Date
+        fi
+    fi
 fi
 
-curl -o $PREFIX/bin/ytdl -fsSL https://bit.ly/ytdl-main
-chmod +x $PREFIX/bin/ytdl
+
