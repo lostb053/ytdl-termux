@@ -31,3 +31,4 @@ This command separately downloads best video and best audio available and merges
 use -b option to download video with in-built audio and avoid merging
 <br>
 <br>
+[ytdl plugin in action](https://bit.ly/ytdl-sample-vid)
