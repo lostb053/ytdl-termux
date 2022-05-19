@@ -1,11 +1,19 @@
-shutt () {
+shutt() {
     { "$@" || return $?; } | while read -r line; do
         :
     done
 }
 
-shutt apt update && apt upgrade -y
-shutt pkg install python ffmpeg -y
+install-ytdl()
+{
+    curl -o $PREFIX/bin/ytdl -fsSL https://bit.ly/ytdl-main
+    curl -o $PREFIX/etc/ytdlversion -fsSL https://bit.ly/ytdl-version
+    chmod +x $PREFIX/bin/ytdl
+    echo Updated sucessfully
+}
+
+shutt apt update && apt upgrade -y 2> /dev/null
+shutt pkg install python ffmpeg -y 2> /dev/null
 pip -qq install yt-dlp
 
 if [[ -f $PREFIX/bin/ytdl ]]
@@ -13,20 +21,18 @@ then
     if ! [[ -f $PREFIX/etc/ytdlversion ]]
     then
         rm $PREFIX/bin/ytdl
+        install-ytdl
     else
         v=$(curl -fsSL https://bit.ly/ytdl-version)
         cv=$(sed -n '1p' $PREFIX/etc/ytdlversion)
         if ! [[ v -eq cv ]]
         then
             rm $PREFIX/bin/ytdl $PREFIX/etc/ytdlversion
-            curl -o $PREFIX/bin/ytdl -fsSL https://bit.ly/ytdl-main
-            curl -o $PREFIX/etc/ytdlversion -fsSL https://bit.ly/ytdl-version
-            chmod +x $PREFIX/bin/ytdl
-            echo Updated sucessfully
+            install-ytdl
         else
             echo Already Upto Date
         fi
     fi
+else
+    install-ytdl
 fi
-
-
