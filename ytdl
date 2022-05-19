@@ -1,4 +1,4 @@
-#!/bin/bash⁸
+#!/bin/bash
 
 v=$(sed -n '1p' $PREFIX/etc/ytdlversion)
 
