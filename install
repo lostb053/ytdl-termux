@@ -1,8 +1,6 @@
-echo Working on it
 apt update && apt upgrade
-termux-setup-storage
 pkg install python ffmpeg
-pip install yt-dlp
+pip -qq install yt-dlp
 
 echo $(curl -s https://raw.githubusercontent.com/lostb053/ytdl-termux/main/ytdl) >> $PREFIX/bin/ytdl
 chmod +x $PREFIX/bin/ytdl
