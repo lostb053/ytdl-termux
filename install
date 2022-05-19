@@ -1,0 +1,6 @@
+echo Working on it
+apt update && apt upgrade
+termux-setup-storage
+pkg install python ffmpeg
+pip install yt-dlp
+

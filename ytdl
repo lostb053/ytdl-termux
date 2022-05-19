@@ -1,0 +1,90 @@
+#!/bin/bash
+
+echo
+echo -e "Do you wish to download Video or Audio?\n1. Video\n2. Audio"
+echo
+
+read filetype
+
+echo
+echo -e "Is it Single Video Link or Playlist Link\n1. Single Video Link\n2. Playlist Link"
+echo
+
+read format
+
+if [[ $filetype -eq 1 ]]
+then
+
+    echo
+    echo -e "Select your preferred quality\n1. High\n2. Medium\n3. Low"
+    echo
+
+    read quality
+
+fi
+
+echo
+echo "Please enter the link below:"
+echo
+
+read link
+
+echo
+echo -e "Working on it\nPlease wait for a while..."
+echo
+echo
+
+
+if [[ $filetype -eq 1 ]]
+then
+
+    if [[ $format -eq 1 ]]
+    then
+
+        if [[ $quality -eq 1 ]]
+        then
+            yt-dlp -f "(137/399/398/bestvideo[ext=mp4]/136)+(bestaudio/140/251)" --prefer-ffmpeg --no-mtime --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-post-overwrites --geo-bypass --ignore-errors --no-playlist $link
+
+        elif [[ $quality -eq 2 ]]
+        then
+            yt-dlp -f "(397/135/396/134)+(bestaudio/140/251)" --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-post-overwrites --no-mtime --geo-bypass --ignore-errors --no-playlist $link
+
+        else
+            yt-dlp -f "worstvideo+(bestaudio/140/251)" --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-post-overwrites --geo-bypass --no-mtime --ignore-errors --no-playlist $link
+
+        fi
+
+    else
+
+        if [[ $quality -eq 1 ]]
+        then
+            yt-dlp -f "(137/399/398/bestvideo[ext=mp4]/136)+(bestaudio/140/251)" --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s.%(ext)s' --no-mtime --no-post-overwrites --geo-bypass --ignore-errors --yes-playlist $link
+
+        elif [[ $quality -eq 2 ]]
+        then
+            yt-dlp -f "(397/135/396/134)+(bestaudio/140/251)" --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s.%(ext)s' --no-post-overwrites --no-mtime --geo-bypass --ignore-errors --yes-playlist $link
+
+        else
+            yt-dlp -f "worstvideo+(bestaudio/140/251)" --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s.%(ext)s' --no-post-overwrites --geo-bypass --no-mtime --ignore-errors --yes-playlist $link
+
+        fi
+
+    fi
+
+else
+
+    if [ $format -eq 1 ]
+    then
+        yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-mtime --geo-bypass --ignore-errors --no-playlist $link
+
+    else
+        yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s.%(ext)s' --no-mtime --no-post-overwrites --geo-bypass --ignore-errors --yes-playlist $link
+
+    fi
+
+fi
+
+
+echo
+echo
+echo "Done"
