@@ -26,9 +26,12 @@ ytdl        invokes the function, no required options
 -h          to print this help message
 -a link     to download audio, no playlist links
 -b link     download best video (with in-built audio) available, no playlist links
+-s link     download audio from youtube using metadata from any spotify link
 ```
 This command separately downloads best video and best audio available and merges them
 use -b option to download video with in-built audio and avoid merging
+-s option supports spotify track, playlist, album and artist urls
+
 <br>
 <br>
 [ytdl plugin in action](https://bit.ly/ytdl-sample-vid)
