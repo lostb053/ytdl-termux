@@ -33,5 +33,4 @@ use -b option to download video with in-built audio and avoid merging
 -s option supports spotify track, playlist, album and artist urls
 
 <br>
-<br>
-[ytdl plugin in action](https://bit.ly/ytdl-sample-vid)
+<a href="https://bit.ly/ytdl-sample-vid">ytdl plugin in action</a>
