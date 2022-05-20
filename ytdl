@@ -2,10 +2,12 @@
 
 v=$(sed -n '1p' $PREFIX/etc/ytdlversion)
 
+
 Update()
 {
     bash -c "$(curl -fsSL https://bit.ly/install-ytdl-termux)"
 }
+
 
 Help()
 {
@@ -19,10 +21,33 @@ Help()
     echo "-h          to print this help message"
     echo "-a link     to download audio, no playlist links"
     echo "-b link     download best video (with in-built audio) available, no playlist links"
+    echo "-s link     download audio from youtube using metadata from any spotify link"
     echo
     echo "This command separately downloads best video and best audio available and merges them"
-    echo "use -b option to download video with in-built audio and avoid merging"
+    echo "Use -b option to download video with in-built audio and avoid merging"
+    echo "-s option supports spotify track, playlist, album and artist urls"
 }
+
+
+Spotcreds()
+{
+    echo
+    echo "Checking credentials"
+    if [[ -f $PREFIX/etc/spotcreds ]]
+    then
+        echo "Credentials found"
+        SPOTIFY_CLIENT_ID=$(sed -n '1p' $PREFIX/etc/spotcreds)
+        SPOTIFY_CLIENT_SECRET=$(sed -n '2p' $PREFIX/etc/spotcreds)
+    else
+        echo -e "Credentials not found\n\nCreating credentials file\nGet your credentials from https://developer.spotify.com/my-applications"
+        echo -e "\nPlease enter Spotify Client ID:\n"
+        read SPOTIFY_CLIENT_ID
+        echo -e "\n\nPlease enter Spotify Client Secret:\n"
+        read SPOTIFY_CLIENT_SECRET
+        echo -e "$SPOTIFY_CLIENT_ID\n$SPOTIFY_CLIENT_SECRET" >> $PREFIX/etc/spotcreds
+    fi
+}
+
 
 while getopts ":uhb:a:" option; do
     case $option in
@@ -40,8 +65,13 @@ while getopts ":uhb:a:" option; do
             link=${OPTARG}
             yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-mtime --geo-bypass --ignore-errors --no-playlist $link
             exit;;
+        s)
+            Spotcreds
+            link=${OPTARGS}
+            spotify_dl -l $link -s -w -k -o $EXTERNAL_STORAGE/YTDL
     esac
 done
+
 
 echo
 echo -e "Do you wish to download Video or Audio?\n1. Video\n2. Audio"

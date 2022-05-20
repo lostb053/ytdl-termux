@@ -4,18 +4,35 @@ shutt() {
     done
 }
 
-installytdl() {
+
+downloadytdl() {
     curl -o $PREFIX/bin/ytdl -fsSL https://bit.ly/ytdl-main
     curl -o $PREFIX/etc/ytdlversion -fsSL https://bit.ly/ytdl-version
     chmod +x $PREFIX/bin/ytdl
+}
+
+
+installytdl() {
+    shutt pkg install python -y 2> /dev/null
+    shutt pkg install ffmpeg -y 2> /dev/null
+    downloadytdl
     echo Installation successful
 }
 
+
+updateytdl() {
+    rm $PREFIX/bin/ytdl $PREFIX/etc/ytdlversion
+    downloadytdl
+    echo Updated successfully
+}
+
+
 shutt apt update -y 2> /dev/null
 shutt apt upgrade -y 2> /dev/null
-shutt pkg install python -y 2> /dev/null
-shutt pkg install ffmpeg -y 2> /dev/null
 pip -qq install yt-dlp
+pip -qq install yt-dlp
+pip -qq install yt-dlp
+
 
 if [[ -f $PREFIX/bin/ytdl ]]
 then
@@ -28,8 +45,7 @@ then
         cv=$(sed -n '1p' $PREFIX/etc/ytdlversion)
         if ! [[ v -eq cv ]]
         then
-            rm $PREFIX/bin/ytdl $PREFIX/etc/ytdlversion
-            installytdl
+            updateytdl
         else
             echo Already Upto Date
         fi
