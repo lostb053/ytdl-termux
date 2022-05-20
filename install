@@ -48,7 +48,7 @@ then
     else
         v=$(curl -fsSL https://bit.ly/ytdl-version)
         cv=$(sed -n '1p' $PREFIX/etc/ytdlversion)
-        if ! [[ v -eq cv ]]
+        if ! [[ v == cv ]]
         then
             updateytdl
         else
