@@ -8,7 +8,7 @@ installytdl() {
     curl -o $PREFIX/bin/ytdl -fsSL https://bit.ly/ytdl-main
     curl -o $PREFIX/etc/ytdlversion -fsSL https://bit.ly/ytdl-version
     chmod +x $PREFIX/bin/ytdl
-    echo Updated sucessfully
+    echo Installation successful
 }
 
 shutt apt update -y 2> /dev/null
