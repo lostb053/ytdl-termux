@@ -25,6 +25,7 @@ USAGE:  ytdl [OPTIONS]
 ytdl        invokes the function, no required options
 -u          option to update this program
 -h          to print this help message
+-q          quiet mode, will show no progress, download quietly, unsupported with other flags
 -a link     to download audio, no playlist links
 -b link     download best video (with in-built audio) available, no playlist links
 -s link     download audio from youtube using metadata from any spotify link

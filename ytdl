@@ -19,6 +19,7 @@ Help()
     echo "ytdl        invokes the function, no required options"
     echo "-u          option to update this program"
     echo "-h          to print this help message"
+    echo "-q          quiet mode, will show no progress, download quietly, unsupported with other flags"
     echo "-a link     to download audio, no playlist links"
     echo "-b link     download best video (with in-built audio) available, no playlist links"
     echo "-s link     download audio from youtube using metadata from any spotify link"
@@ -49,7 +50,11 @@ Spotcreds()
 }
 
 
-while getopts ":uhb:a:" option; do
+b=bash
+e=""
+
+
+while getopts ":uqhb:a:" option; do
     case $option in
         u)
             Update
@@ -59,7 +64,7 @@ while getopts ":uhb:a:" option; do
             exit;;
         b)
             link=${OPTARG}
-            yt-dlp -f b --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-mtime --no-post-overwrites --geo-bypass --ignore-errors --no-playlist $link
+            yt-dlp -f best --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-mtime --no-post-overwrites --geo-bypass --ignore-errors --no-playlist $link
             exit;;
         a)
             link=${OPTARG}
@@ -69,6 +74,10 @@ while getopts ":uhb:a:" option; do
             Spotcreds
             link=${OPTARGS}
             spotify_dl -l $link -s -w -k -o $EXTERNAL_STORAGE/YTDL
+            exit;;
+        q)
+            b=shutt
+            e="2> /dev/null"
     esac
 done
 
@@ -76,30 +85,24 @@ done
 echo
 echo -e "Do you wish to download Video or Audio?\n1. Video\n2. Audio"
 echo
-
 read filetype
 
 echo
 echo -e "Is it Single Video Link or Playlist Link\n1. Single Video Link\n2. Playlist Link"
 echo
-
 read linktype
 
 if [[ $filetype -eq 1 ]]
 then
-
     echo
     echo -e "Select your preferred quality\n1. High\n2. Medium\n3. Low"
     echo
-
     read quality
-
 fi
 
 echo
 echo "Please enter the link below:"
 echo
-
 read link
 
 echo
@@ -134,7 +137,7 @@ else
 fi
 
 
-yt-dlp -f $format --prefer-ffmpeg --output $output --no-mtime --no-post-overwrites --geo-bypass --ignore-errors $playlist $link
+$b yt-dlp -f $format --prefer-ffmpeg --output $output --no-mtime --no-post-overwrites --geo-bypass --ignore-errors $playlist $link $e
 
 echo
 echo
