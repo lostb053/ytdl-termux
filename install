@@ -29,9 +29,9 @@ updateytdl() {
 
 shutt apt update -y 2> /dev/null
 shutt apt upgrade -y 2> /dev/null
-pip -qq install yt-dlp
-pip -qq install yt-dlp
-pip -qq install yt-dlp
+pip -qq install -U pip
+pip -qq install -U yt-dlp
+pip -qq install -U spotify_dl
 
 
 if [[ -f $PREFIX/bin/ytdl ]]
