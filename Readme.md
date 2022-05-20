@@ -1,4 +1,4 @@
-<h1>A simple script that makes downloading videos from <i>YouTube</i> using <i>yt-dlp</i> easier</h1>
+<h1>A simple script that makes downloading videos from <i>YouTube</i> easier using <i>yt-dlp</i> and <i>spotify_dl</i></h1>
 
 # Requirements
 * Android device with Android version 7.0 or above
@@ -6,6 +6,7 @@
 * Python
 * FFMPEG
 * yt-dlp (pip package)
+* spotify_dl (pip package)
 
 # Installation
 * Install [Termux](https://f-droid.org/en/packages/com.termux/) app from F-Droid (Do not use playstore version)
