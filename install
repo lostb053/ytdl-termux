@@ -6,6 +6,11 @@ shutt() {
 
 
 downloadytdl() {
+    echo Setting up required packages
+    pip -qq install -U pip
+    pip -qq install -U yt-dlp
+    pip -qq install -U spotify_dl
+    echo Finalizing process
     curl -o $PREFIX/bin/ytdl -fsSL https://bit.ly/ytdl-main
     curl -o $PREFIX/etc/ytdlversion -fsSL https://bit.ly/ytdl-version
     chmod +x $PREFIX/bin/ytdl
@@ -13,7 +18,9 @@ downloadytdl() {
 
 
 installytdl() {
+    echo Installing Python3
     shutt pkg install python -y 2> /dev/null
+    echo Installing FFMPEG
     shutt pkg install ffmpeg -y 2> /dev/null
     downloadytdl
     echo Installation successful
@@ -27,11 +34,9 @@ updateytdl() {
 }
 
 
+echo Updating local packages
 shutt apt update -y 2> /dev/null
 shutt apt upgrade -y 2> /dev/null
-pip -qq install -U pip
-pip -qq install -U yt-dlp
-pip -qq install -U spotify_dl
 
 
 if [[ -f $PREFIX/bin/ytdl ]]

@@ -83,7 +83,7 @@ echo
 echo -e "Is it Single Video Link or Playlist Link\n1. Single Video Link\n2. Playlist Link"
 echo
 
-read format
+read linktype
 
 if [[ $filetype -eq 1 ]]
 then
@@ -110,53 +110,31 @@ echo
 
 if [[ $filetype -eq 1 ]]
 then
-
-    if [[ $format -eq 1 ]]
+    if [[ $quality -eq 1 ]]
     then
-
-        if [[ $quality -eq 1 ]]
-        then
-            yt-dlp -f "(137/399/398/bestvideo[ext=mp4]/136)+(bestaudio/140/251)" --prefer-ffmpeg --no-mtime --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-post-overwrites --geo-bypass --ignore-errors --no-playlist $link
-
-        elif [[ $quality -eq 2 ]]
-        then
-            yt-dlp -f "(397/135/396/134)+(bestaudio/140/251)" --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-post-overwrites --no-mtime --geo-bypass --ignore-errors --no-playlist $link
-
-        else
-            yt-dlp -f "worstvideo+(bestaudio/140/251)" --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-post-overwrites --geo-bypass --no-mtime --ignore-errors --no-playlist $link
-
-        fi
-
+        format="(137/399/398/bestvideo[ext=mp4]/136)+(bestaudio/140/251)"
+    elif [[ $quality -eq 2 ]]
+    then
+        format="(397/135/396/134)+(bestaudio/140/251)"
     else
-
-        if [[ $quality -eq 1 ]]
-        then
-            yt-dlp -f "(137/399/398/bestvideo[ext=mp4]/136)+(bestaudio/140/251)" --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s.%(ext)s' --no-mtime --no-post-overwrites --geo-bypass --ignore-errors --yes-playlist $link
-
-        elif [[ $quality -eq 2 ]]
-        then
-            yt-dlp -f "(397/135/396/134)+(bestaudio/140/251)" --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s.%(ext)s' --no-post-overwrites --no-mtime --geo-bypass --ignore-errors --yes-playlist $link
-
-        else
-            yt-dlp -f "worstvideo+(bestaudio/140/251)" --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s.%(ext)s' --no-post-overwrites --geo-bypass --no-mtime --ignore-errors --yes-playlist $link
-
-        fi
-
+        format="worstvideo+(bestaudio/140/251)"
     fi
-
 else
-
-    if [ $format -eq 1 ]
-    then
-        yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-mtime --geo-bypass --ignore-errors --no-playlist $link
-
-    else
-        yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s.%(ext)s' --no-mtime --no-post-overwrites --geo-bypass --ignore-errors --yes-playlist $link
-
-    fi
-
+    format="bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata"
 fi
 
+
+if [[ $linktype -eq 1 ]]
+then
+    playlist="--no-playlist"
+    output='$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s'
+else
+    playlist="--yes-playlist"
+    output='$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s.%(ext)s'
+fi
+
+
+yt-dlp -f $format --prefer-ffmpeg --output $output --no-mtime --no-post-overwrites --geo-bypass --ignore-errors $playlist $link
 
 echo
 echo
