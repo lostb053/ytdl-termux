@@ -35,9 +35,14 @@ updateytdl() {
 
 
 echo Updating local packages
-shutt apt update -y 2> /dev/null
-shutt apt upgrade -y 2> /dev/null
-
+echo
+sleep 3
+apt update -y 2> /dev/null
+echo
+apt upgrade -y 2> /dev/null
+echo
+echo
+echo
 
 if [[ -f $PREFIX/bin/ytdl ]]
 then
