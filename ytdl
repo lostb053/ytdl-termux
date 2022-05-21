@@ -64,7 +64,7 @@ while getopts ":uqhb:a:" option; do
             exit;;
         b)
             link=${OPTARG}
-            yt-dlp -f best --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-mtime --no-post-overwrites --geo-bypass --ignore-errors --no-playlist $link
+            yt-dlp -f b --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-mtime --no-post-overwrites --geo-bypass --ignore-errors --no-playlist $link
             exit;;
         a)
             link=${OPTARG}
