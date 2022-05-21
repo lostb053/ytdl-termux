@@ -14,7 +14,7 @@
 * If you opt for Litmux, after running the installation cmd, exit the app by entering exit command, twice if it doesn't closes app after single try. You may later be prompt to setup Litmux, just answer the questions asked
 * Run the following command and wait till it's completed
 ```
-bash -c $(curl -fsSL https://bit.ly/install-ytdl-termux)
+bash -c "$(curl -fsSL https://bit.ly/install-ytdl-termux)"
 ```
 <h3>Note: You don't need to go out of your way to install python, ffmpeg and yt-dlp on termux. The script installs everything</h3>
 
