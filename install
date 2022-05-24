@@ -34,15 +34,17 @@ updateytdl() {
 }
 
 
+echo First time setup may take upto 5 minutes
+echo Depending on your internet speed, may take even longer
+echo
 echo Updating local packages
 echo
 sleep 3
-apt update -y 2> /dev/null
+apt update -y
 echo
-apt upgrade -y 2> /dev/null
+yes|apt upgrade
 echo
-echo
-echo
+
 
 if [[ -f $PREFIX/bin/ytdl ]]
 then
