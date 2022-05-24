@@ -37,7 +37,8 @@ installytdl() {
 
 
 updateytdl() {
-    rm $PREFIX/bin/ytdl $PREFIX/etc/ytdlversion
+    rm $PREFIX/bin/ytdl
+    rm $PREFIX/etc/ytdlversion
     downloadytdl
     echo -e "${green}Updated successfully${e}"
 }
