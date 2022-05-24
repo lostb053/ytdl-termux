@@ -10,12 +10,8 @@ orange="\e[34m"
 magenta="\e[35m"
 cyan="\e[36m"
 e="\e[0m"
-
-shutt() {
-    { "$@" || return $?; } | while read -r line; do
-        :
-    done
-}
+b="\e[1m"
+i="\e[3m"
 
 
 Update()
@@ -26,10 +22,10 @@ Update()
 
 Help()
 {
-    echo "A simple script written for easy downloading videos from YouTube using yt-dlp"
-    echo "version - v$v  Copyright (c) 2022 lostb053"
+    echo "${orange}A simple script written for easy downloading videos from YouTube using yt-dlp${e}"
+    echo "${orange}version - ${e}${b}${green}v$v${e}  ${b}${cyan}Copyright (c) 2022 lostb053${e}"
     echo
-    echo "USAGE:  ytdl [OPTIONS]"
+    echo "${orange}USAGE:  ytdl [OPTIONS]${e}"
     echo
     echo "ytdl        invokes the function, no required options"
     echo "-u          option to update this program"
@@ -39,34 +35,34 @@ Help()
     echo "-b link     download best video (with in-built audio) available, no playlist links"
     echo "-s link     download audio from youtube using metadata from any spotify link"
     echo
-    echo "This command separately downloads best video and best audio available and merges them"
-    echo "Use -b option to download video with in-built audio and avoid merging"
-    echo "-s option supports spotify track, playlist, album and artist urls"
+    echo "${yellow}This command separately downloads best video and best audio available and merges them${e}"
+    echo "${yellow}Use -b option to download video with in-built audio and avoid merging${e}"
+    echo "${yellow}-s option supports spotify track, playlist, album and artist urls${e}"
 }
 
 
 Spotcreds()
 {
     echo
-    echo "Checking credentials"
+    echo "${magenta}Checking credentials${e}"
     if [[ -f $PREFIX/etc/spotcreds ]]
     then
-        echo "Credentials found"
+        echo "${magenta}Credentials found${e}"
         SPOTIFY_CLIENT_ID=$(sed -n '1p' $PREFIX/etc/spotcreds)
         SPOTIFY_CLIENT_SECRET=$(sed -n '2p' $PREFIX/etc/spotcreds)
     else
-        echo -e "Credentials not found\n\nCreating credentials file\nGet your credentials from https://developer.spotify.com/my-applications"
-        echo -e "\nPlease enter Spotify Client ID:\n"
+        echo -e "${red}Credentials not found${e}\n\n${yellow}Creating credentials file\nGet your credentials from${e} ${magenta}https://developer.spotify.com/my-applications${e}"
+        echo -e "\n${orange}Please enter Spotify Client ID:\n${e}"
         read SPOTIFY_CLIENT_ID
-        echo -e "\n\nPlease enter Spotify Client Secret:\n"
+        echo -e "\n\n${orange}Please enter Spotify Client Secret:\n${e}"
         read SPOTIFY_CLIENT_SECRET
         echo -e "$SPOTIFY_CLIENT_ID\n$SPOTIFY_CLIENT_SECRET" >> $PREFIX/etc/spotcreds
+        echo
+        echo -e "${green}Credentials saved successfully!!!${e}"
     fi
 }
 
-
-b=""
-
+quiet=""
 
 while getopts ":uqhb:a:" option; do
     case $option in
@@ -90,36 +86,36 @@ while getopts ":uqhb:a:" option; do
             spotify_dl -l $link -s -w -k -o $EXTERNAL_STORAGE/YTDL
             exit;;
         q)
-            b=shutt
+            quiet="-q"
     esac
 done
 
 
 echo
-echo -e "Do you wish to download Video or Audio?\n1. Video\n2. Audio"
+echo -e "${magenta}Do you wish to download Video or Audio?${e}\n1. Video\n2. Audio"
 echo
 read filetype
 
 echo
-echo -e "Is it Single Video Link or Playlist Link\n1. Single Video Link\n2. Playlist Link"
+echo -e "${magenta}Is it Single Video Link or Playlist Link${e}\n1. Single Video Link\n2. Playlist Link"
 echo
 read linktype
 
 if [[ $filetype -eq 1 ]]
 then
     echo
-    echo -e "Select your preferred quality\n1. High\n2. Medium\n3. Low"
+    echo -e "${magenta}Select your preferred quality${e}\n1. High\n2. Medium\n3. Low"
     echo
     read quality
 fi
 
 echo
-echo "Please enter the link below:"
+echo "${yellow}Please enter the link below:${e}"
 echo
 read link
 
 echo
-echo -e "Working on it\nPlease wait for a while..."
+echo -e "${yellow}Working on it\nPlease wait for a while...${e}"
 echo
 echo
 
@@ -150,8 +146,8 @@ else
 fi
 
 
-$b yt-dlp -f $format --prefer-ffmpeg --output $output --no-mtime --no-post-overwrites --geo-bypass --ignore-errors $playlist $link
+yt-dlp $quiet -f $format --prefer-ffmpeg --output $output --no-mtime --no-post-overwrites --geo-bypass --ignore-errors $playlist $link
 
 echo
 echo
-echo "Done"
+echo "${green}Done${e}"
