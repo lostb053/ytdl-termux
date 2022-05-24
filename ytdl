@@ -22,10 +22,10 @@ Update()
 
 Help()
 {
-    echo "${orange}A simple script written for easy downloading videos from YouTube using yt-dlp${e}"
-    echo "${orange}version - ${e}${b}${green}v$v${e}  ${b}${cyan}Copyright (c) 2022 lostb053${e}"
+    echo -e "${orange}A simple script written for easy downloading videos from YouTube using yt-dlp${e}"
+    echo -e "${orange}version - ${e}${b}${green}v$v${e}  ${b}${cyan}Copyright (c) 2022 lostb053${e}"
     echo
-    echo "${orange}USAGE:  ytdl [OPTIONS]${e}"
+    echo -e "${orange}USAGE:  ytdl [OPTIONS]${e}"
     echo
     echo "ytdl        invokes the function, no required options"
     echo "-u          option to update this program"
@@ -35,9 +35,9 @@ Help()
     echo "-b link     download best video (with in-built audio) available, no playlist links"
     echo "-s link     download audio from youtube using metadata from any spotify link"
     echo
-    echo "${yellow}This command separately downloads best video and best audio available and merges them${e}"
-    echo "${yellow}Use -b option to download video with in-built audio and avoid merging${e}"
-    echo "${yellow}-s option supports spotify track, playlist, album and artist urls${e}"
+    echo -e "${yellow}This command separately downloads best video and best audio available and merges them${e}"
+    echo -e "${yellow}Use -b option to download video with in-built audio and avoid merging${e}"
+    echo -e "${yellow}-s option supports spotify track, playlist, album and artist urls${e}"
 }
 
 
@@ -47,7 +47,7 @@ Spotcreds()
     echo "${magenta}Checking credentials${e}"
     if [[ -f $PREFIX/etc/spotcreds ]]
     then
-        echo "${magenta}Credentials found${e}"
+        echo -e "${magenta}Credentials found${e}"
         SPOTIFY_CLIENT_ID=$(sed -n '1p' $PREFIX/etc/spotcreds)
         SPOTIFY_CLIENT_SECRET=$(sed -n '2p' $PREFIX/etc/spotcreds)
     else
