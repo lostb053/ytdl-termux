@@ -39,6 +39,7 @@ Help()
     echo -e "${yellow}Use -b option to download video with in-built audio and avoid merging${e}"
     echo -e "${yellow}-s option supports spotify track, playlist, album and artist urls${e}"
     echo -e "${yellow}-q option cannot be used with other flags${e}"
+    echo -e "${yellow}Options -a, -b, -s require (single)link${e}"
 }
 
 
