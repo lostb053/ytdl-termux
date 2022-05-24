@@ -1,3 +1,12 @@
+red="\e[31m"
+green="\e[32m"
+yellow="\e[33m"
+orange="\e[34m"
+magenta="\e[35m"
+cyan="\e[36m"
+e="\e[0m"
+
+
 shutt() {
     { "$@" || return $?; } | while read -r line; do
         :
@@ -6,11 +15,11 @@ shutt() {
 
 
 downloadytdl() {
-    echo Setting up required packages
+    echo -e "${yellow}Setting up required packages${e}"
     pip -qq install -U pip
     pip -qq install -U yt-dlp
     pip -qq install -U spotify_dl
-    echo Finalizing process
+    echo -e "${yellow}Finalizing process${e}"
     curl -o $PREFIX/bin/ytdl -fsSL https://bit.ly/ytdl-main
     curl -o $PREFIX/etc/ytdlversion -fsSL https://bit.ly/ytdl-version
     chmod +x $PREFIX/bin/ytdl
@@ -18,32 +27,29 @@ downloadytdl() {
 
 
 installytdl() {
-    echo Installing Python3
+    echo -e "${orange}Installing Python3${e}"
     shutt pkg install python -y 2> /dev/null
-    echo Installing FFMPEG
+    echo -e "${orange}Installing FFMPEG${e}"
     shutt pkg install ffmpeg -y 2> /dev/null
     downloadytdl
-    echo Installation successful
+    echo -e "${green}Installation successful${e}"
 }
 
 
 updateytdl() {
     rm $PREFIX/bin/ytdl $PREFIX/etc/ytdlversion
     downloadytdl
-    echo Updated successfully
+    echo -e "${green}Updated successfully${e}"
 }
 
 
-echo First time setup may take upto 5 minutes
-echo Depending on your internet speed, may take even longer
+echo -e "${cyan}First time setup may take upto 5 minutes${e}"
+echo -e "${cyan}Depending on your internet speed, may take even longer${e}"
 echo
-echo Updating local packages
-echo
+echo -e "${magenta}Updating local packages${e}"
 sleep 3
-apt update -y
-echo
-yes|apt upgrade
-echo
+shutt apt update -y 2> /dev/null
+yes|shutt apt upgrade 2> /dev/null
 
 
 if [[ -f $PREFIX/bin/ytdl ]]

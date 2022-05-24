@@ -2,6 +2,15 @@
 
 v=$(sed -n '1p' $PREFIX/etc/ytdlversion)
 
+
+red="\e[31m"
+green="\e[32m"
+yellow="\e[33m"
+orange="\e[34m"
+magenta="\e[35m"
+cyan="\e[36m"
+e="\e[0m"
+
 shutt() {
     { "$@" || return $?; } | while read -r line; do
         :
