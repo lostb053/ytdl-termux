@@ -23,7 +23,7 @@ Update()
 Help()
 {
     echo -e "${orange}A simple script written for easy downloading videos from YouTube using yt-dlp${e}"
-    echo -e "${orange}version - ${e}${b}${green}v$v${e}  ${b}${cyan}Copyright (c) 2022 lostb053${e}"
+    echo -e "${orange}version - ${e}${b}${green}v$v${e}  ${i}${cyan}Copyright (c) 2022 lostb053${e}"
     echo
     echo -e "${orange}USAGE:  ytdl [OPTIONS]${e}"
     echo
