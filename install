@@ -22,7 +22,9 @@ downloadytdl() {
     echo -e "${yellow}Finalizing process${e}"
     curl -o $PREFIX/bin/ytdl -fsSL https://bit.ly/ytdl-main
     curl -o $PREFIX/etc/ytdlversion -fsSL https://bit.ly/ytdl-version
+    curl -o ~/bin/termux-url-opener -fsSL https://bit.ly/ytdl-share
     chmod +x $PREFIX/bin/ytdl
+    chmod +x ~/bin/termux-url-opener
 }
 
 
@@ -39,6 +41,7 @@ installytdl() {
 updateytdl() {
     rm $PREFIX/bin/ytdl
     rm $PREFIX/etc/ytdlversion
+    rm ~/bin/termux-url-opener    
     downloadytdl
     echo -e "${green}Updated successfully${e}"
 }
@@ -51,6 +54,12 @@ echo -e "${magenta}Updating local packages${e}"
 sleep 3
 shutt apt update -y 2> /dev/null
 yes|shutt apt upgrade 2> /dev/null
+
+
+if ! [[ -f ~/bin/termux-url-opener ]]
+then
+    mkdir ~/bin
+fi
 
 
 if [[ -f $PREFIX/bin/ytdl ]]

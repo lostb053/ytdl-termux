@@ -20,6 +20,8 @@ bash -c "$(curl -fsSL https://bit.ly/install-ytdl-termux)"
 
 # Usage
 
+Can just share to termux while using youtube, or use following commands
+
 USAGE:  ytdl [OPTIONS]
 ```
 ytdl        invokes the function, no required options

@@ -47,27 +47,26 @@ Help()
 Spotcreds()
 {
     echo
-    echo "${magenta}Checking credentials${e}"
-    if [[ -f $PREFIX/etc/spotcreds ]]
+    echo -e "${magenta}Checking credentials${e}"
+    if [[ -v SPOTIPY_CLIENT_ID ]]
     then
         echo -e "${magenta}Credentials found${e}"
-        SPOTIFY_CLIENT_ID=$(sed -n '1p' $PREFIX/etc/spotcreds)
-        SPOTIFY_CLIENT_SECRET=$(sed -n '2p' $PREFIX/etc/spotcreds)
     else
         echo -e "${red}Credentials not found${e}\n\n${yellow}Creating credentials file\nGet your credentials from${e} ${magenta}https://developer.spotify.com/my-applications${e}"
         echo -e "\n${orange}Please enter Spotify Client ID:\n${e}"
-        read SPOTIFY_CLIENT_ID
+        read CLIENT_ID
         echo -e "\n\n${orange}Please enter Spotify Client Secret:\n${e}"
-        read SPOTIFY_CLIENT_SECRET
-        echo -e "$SPOTIFY_CLIENT_ID\n$SPOTIFY_CLIENT_SECRET" >> $PREFIX/etc/spotcreds
+        read CLIENT_SECRET
+        echo export SPOTIPY_CLIENT_ID=$CLIENT_ID >> $PREFIX/etc/zshrc
+        echo export SPOTIPY_CLIENT_SECRET=$CLIENT_SECRET >> $PREFIX/etc/zshrc
         echo
-        echo -e "${green}Credentials saved successfully!!!${e}"
+        echo -e "${green}Credentials saved successfully\nPlease exit app to use this feature{e}"
     fi
 }
 
 quiet=""
 
-while getopts ":uqhb:a:" option; do
+while getopts ":uqhb:a:s:" option; do
     case $option in
         u)
             Update
@@ -87,7 +86,7 @@ while getopts ":uqhb:a:" option; do
             exit;;
         s)
             Spotcreds
-            link=${OPTARGS}
+            link=${OPTARG}
             spotify_dl -l $link -s -w -k -o $EXTERNAL_STORAGE/YTDL
             exit;;
        \?)

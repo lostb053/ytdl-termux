@@ -1,0 +1,108 @@
+#!/bin/bash
+
+
+red="\e[31m"
+green="\e[32m"
+yellow="\e[33m"
+orange="\e[34m"
+magenta="\e[35m"
+cyan="\e[36m"
+e="\e[0m"
+b="\e[1m"
+i="\e[3m"
+
+link=$1
+
+Spotcreds()
+{
+    echo
+    echo "${magenta}Checking credentials${e}"
+    if [[ -f $PREFIX/etc/spotcreds ]]
+    then
+        echo -e "${magenta}Credentials found${e}"
+        SPOTIFY_CLIENT_ID=$(sed -n '1p' $PREFIX/etc/spotcreds)
+        SPOTIFY_CLIENT_SECRET=$(sed -n '2p' $PREFIX/etc/spotcreds)
+    else
+        echo -e "${red}Credentials not found${e}\n\n${yellow}Creating credentials file\nGet you>
+        echo -e "\n${orange}Please enter Spotify Client ID:\n${e}"
+        read SPOTIFY_CLIENT_ID
+        echo -e "\n\n${orange}Please enter Spotify Client Secret:\n${e}"
+        read SPOTIFY_CLIENT_SECRET
+        echo -e "$SPOTIFY_CLIENT_ID\n$SPOTIFY_CLIENT_SECRET" >> $PREFIX/etc/spotcreds
+        echo
+        echo -e "${green}Credentials saved successfully!!!${e}"
+    fi
+}
+
+
+Spotdl()
+{
+    Spotcreds
+    spotify_dl -l $link -s -w -k -o $EXTERNAL_STORAGE/YTDL
+    exit
+}
+
+
+if [[ link == *open.spotify.com* ]]
+then
+    Spotdl
+fi
+
+
+echo
+echo -e "${magenta}Do you wish to download Video or Audio?${e}\n1. Video\n2. Audio"
+echo
+read filetype
+
+echo
+echo -e "${magenta}Is it Single Video Link or Playlist Link${e}\n1. Single Video Link\n2. Playlist Link"
+echo
+read linktype
+
+
+if [[ $filetype -eq 1 ]]
+then
+    echo
+    echo -e "${magenta}Select your preferred quality${e}\n1. High\n2. Medium\n3. Low"
+    echo
+    read quality
+fi
+
+
+echo
+echo -e "${yellow}Working on it\nPlease wait for a while...${e}"
+echo
+echo
+
+
+if [[ $filetype -eq 1 ]]
+then
+    if [[ $quality -eq 1 ]]
+    then
+        format="(137/399/398/bestvideo[ext=mp4]/136)+(bestaudio/140/251)"
+    elif [[ $quality -eq 2 ]]
+    then
+        format="(397/135/396/134)+(bestaudio/140/251)"
+    else
+        format="worstvideo+(bestaudio/140/251)"
+    fi
+else
+    format="bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata"
+fi
+
+
+if [[ $linktype -eq 1 ]]
+then
+    playlist="--no-playlist"
+    output='$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s'
+else
+    playlist="--yes-playlist"
+    output='$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s.%(ext)s'
+fi
+
+
+yt-dlp $quiet -f $format --prefer-ffmpeg --output $output --no-mtime --no-post-overwrites --geo-bypass --ignore-errors $playlist $link
+
+echo
+echo
+echo -e "${green}Done${e}"
