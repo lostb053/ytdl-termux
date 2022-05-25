@@ -32,8 +32,7 @@ Help()
     echo "-h          to print this help message"
     echo "-q          quiet mode, will show no progress, download quietly"
     echo "-a link     to download audio"
-    echo "-b link     download best video (with in-built audio)"
-    echo "            available"
+    echo "-b link     download best video (with in-built audio) available"
     echo "-s link     download audio from youtube using metadata"
     echo "            from any spotify link"
     echo
