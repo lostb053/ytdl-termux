@@ -31,9 +31,9 @@ Help()
     echo "-u          option to update this program"
     echo "-h          to print this help message"
     echo "-q          quiet mode, will show no progress, download quietly"
-    echo "-a link     to download audio, no playlist links"
+    echo "-a link     to download audio"
     echo "-b link     download best video (with in-built audio)"
-    echo "            available, no playlist links"
+    echo "            available"
     echo "-s link     download audio from youtube using metadata"
     echo "            from any spotify link"
     echo
@@ -80,10 +80,26 @@ while getopts ":uqhb:a:s:" option; do
             quiet="-q";;
         b)
             link=${OPTARG}
+            if [[ $link == */playlist?* ]]
+            then
+                playlist="--yes-playlist"
+                output='$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s.%(ext)s'
+            else
+                playlist="--no-playlist"
+                output='$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s'
+            fi
             yt-dlp $quiet -f b --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-mtime --no-post-overwrites --geo-bypass --ignore-errors --no-playlist $link
             exit;;
         a)
             link=${OPTARG}
+            if [[ $link == */playlist?* ]]
+            then
+                playlist="--yes-playlist"
+                output='$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s.%(ext)s'
+            else
+                playlist="--no-playlist"
+                output='$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s'
+            fi
             yt-dlp $quiet -f bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-mtime --geo-bypass --ignore-errors --no-playlist $link
             exit;;
         s)
