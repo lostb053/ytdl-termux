@@ -71,6 +71,7 @@ while getopts ":uUqhb:a:s:" option; do
     case $option in
         U)
             echo Forced update >> $PREFIX/etc/ytdlversion;;
+            Update
         u)
             Update
             exit;;
