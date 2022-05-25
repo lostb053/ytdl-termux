@@ -16,7 +16,7 @@
 ```
 bash -c "$(curl -fsSL https://bit.ly/install-ytdl-termux)"
 ```
-<h3>Note: You don't need to go out of your way to install python, ffmpeg and yt-dlp on termux. The script installs everything</h3>
+<h3>Note: You don't need to go out of your way to install python, ffmpeg, etc on termux. The script installs everything</h3>
 
 # Usage
 
@@ -25,7 +25,7 @@ USAGE:  ytdl [OPTIONS]
 ytdl        invokes the function, no required options
 -u          option to update this program
 -h          to print this help message
--q          quiet mode, will show no progress, download quietly, unsupported with other flags
+-q          quiet mode, will show no progress, download quietly
 -a link     to download audio, no playlist links
 -b link     download best video (with in-built audio) available, no playlist links
 -s link     download audio from youtube using metadata from any spotify link
@@ -33,6 +33,7 @@ ytdl        invokes the function, no required options
 This command separately downloads best video and best audio available and merges them
 use -b option to download video with in-built audio and avoid merging
 -s option supports spotify track, playlist, album and artist urls
+Options -a, -b, -s require link
 
 <br>
 <a href="https://bit.ly/ytdl-sample-vid">ytdl plugin in action</a>
