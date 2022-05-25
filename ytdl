@@ -113,7 +113,7 @@ done
 
 
 echo
-echo -e "${magenta}Do you wish to download Video or Audio?${e}\n1. Video\n2. Audio"
+echo -e "${magenta}Do you wish to download Video or Audio?${e}\n\n1. Video\n2. Audio"
 echo
 read filetype
 
@@ -121,7 +121,7 @@ read filetype
 if [[ $filetype -eq 1 ]]
 then
     echo
-    echo -e "${magenta}Select your preferred quality${e}\n1. High\n2. Medium\n3. Low"
+    echo -e "${magenta}Select your preferred quality${e}\n\n1.Best\n2. High\n3. Medium\n4. Low"
     echo
     read quality
 fi
@@ -141,15 +141,18 @@ if [[ $filetype -eq 1 ]]
 then
     if [[ $quality -eq 1 ]]
     then
-        format='(137/399/398/bestvideo[ext=mp4]/136)+(bestaudio/140/251)'
+        format='(571/272/337/401/305/315/266/313/336/400/304/308/264/271/335/399/299/303/137/248/334/398/298/302/136/247/333/397/135/244/332/396/134/243/331/395/133/242/330/394/160/278)+(258/256/bestaudio/251/140)'
     elif [[ $quality -eq 2 ]]
     then
-        format='(397/135/396/134)+(bestaudio/140/251)'
+        format='(336/400/304/308/264/271/335/399/299/303/137/248/334/398/298/302/136/247/333/397/135/244/332/396/134/243/331/395/133/242/330/394/160/278)+(258/256/bestaudio/251/140)'
+    elif [[ $quality -eq 3 ]]
+    then
+        format='(334/398/298/302/136/247/333/397/135/244/332/396/134/243/331/395/133/242/330/394/160/278)+(258/256/bestaudio/251/140)'
     else
-        format='worstvideo+(bestaudio/140/251)'
+        format='(332/396/134/243/331/395/133/242/330/394/160/278)+(258/256/bestaudio/251/140)'
     fi
 else
-    format='bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata'
+    format='258/256/bestaudio/251/140 --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata'
 fi
 
 

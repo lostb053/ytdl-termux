@@ -28,14 +28,21 @@ ytdl        invokes the function, no required options
 -u          option to update this program
 -h          to print this help message
 -q          quiet mode, will show no progress, download quietly
--a link     to download audio, no playlist links
--b link     download best video (with in-built audio) available, no playlist links
+-a link     to download audio
+-b link     download best video (with in-built audio) available
 -s link     download audio from youtube using metadata from any spotify link
 ```
 This command separately downloads best video and best audio available and merges them
 use -b option to download video with in-built audio and avoid merging
 -s option supports spotify track, playlist, album and artist urls
 Options -a, -b, -s require link
+
+# Selection of quality
+* Best - 8k, 4k
+* High - 2k, 1080p
+* Medium - 720p, 480p
+* Low - 360p, 240p, 144p
+* When Higher formats are unavailable, it automatically switches to lower one
 
 <br>
 <a href="https://bit.ly/ytdl-sample-vid">ytdl plugin in action</a>
