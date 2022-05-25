@@ -29,6 +29,13 @@ downloadytdl() {
 
 
 installytdl() {
+    echo "Allow permission storage"
+    sleep 3
+    termux-setup-storage
+    shutt pkg install termux-api -y 2> /dev/null
+    echo "Allow sceeen overlay"
+    sleep 3
+    am start --user 0 -a android.settings.action.MANAGE_OVERLAY_PERMISSION -d "package:com.termux"
     echo -e "${orange}Installing Python3${e}"
     shutt pkg install python -y 2> /dev/null
     echo -e "${orange}Installing FFMPEG${e}"
@@ -54,7 +61,6 @@ echo -e "${magenta}Updating local packages${e}"
 sleep 3
 shutt apt update -y 2> /dev/null
 yes|shutt apt upgrade 2> /dev/null
-
 
 if ! [[ -d ~/bin ]]
 then
