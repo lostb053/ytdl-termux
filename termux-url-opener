@@ -59,7 +59,7 @@ read filetype
 if [[ $filetype -eq 1 ]]
 then
     echo
-    echo -e "${magenta}Select your preferred quality${e}\n\n1.Best\n2. High\n3. Medium\n4. Low"
+    echo -e "${magenta}Select your preferred quality${e}\n\n1. Best\n2. High\n3. Medium\n4. Low"
     echo
     read quality
 fi
