@@ -51,11 +51,12 @@ Spotcreds()
     if [[ -v SPOTIPY_CLIENT_ID ]]
     then
         echo -e "${magenta}Credentials found${e}"
+        echo
     else
         echo -e "${red}Credentials not found${e}\n\n${yellow}Creating credentials file\nGet your credentials from${e} ${magenta}https://developer.spotify.com/my-applications${e}"
         echo -e "\n${orange}Please enter Spotify Client ID:\n${e}"
         read CLIENT_ID
-        echo -e "\n\n${orange}Please enter Spotify Client Secret:\n${e}"
+        echo -e "\n\n\n${orange}Please enter Spotify Client Secret:\n${e}"
         read CLIENT_SECRET
         echo export SPOTIPY_CLIENT_ID=$CLIENT_ID >> $PREFIX/etc/zshrc
         echo export SPOTIPY_CLIENT_SECRET=$CLIENT_SECRET >> $PREFIX/etc/zshrc
