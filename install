@@ -56,7 +56,7 @@ shutt apt update -y 2> /dev/null
 yes|shutt apt upgrade 2> /dev/null
 
 
-if ! [[ -f ~/bin/termux-url-opener ]]
+if ! [[ -f ~/bin ]]
 then
     mkdir ~/bin
 fi

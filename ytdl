@@ -102,10 +102,6 @@ echo -e "${magenta}Do you wish to download Video or Audio?${e}\n1. Video\n2. Aud
 echo
 read filetype
 
-echo
-echo -e "${magenta}Is it Single Video Link or Playlist Link${e}\n1. Single Video Link\n2. Playlist Link"
-echo
-read linktype
 
 if [[ $filetype -eq 1 ]]
 then
@@ -130,25 +126,25 @@ if [[ $filetype -eq 1 ]]
 then
     if [[ $quality -eq 1 ]]
     then
-        format="(137/399/398/bestvideo[ext=mp4]/136)+(bestaudio/140/251)"
+        format='(137/399/398/bestvideo[ext=mp4]/136)+(bestaudio/140/251)'
     elif [[ $quality -eq 2 ]]
     then
-        format="(397/135/396/134)+(bestaudio/140/251)"
+        format='(397/135/396/134)+(bestaudio/140/251)'
     else
-        format="worstvideo+(bestaudio/140/251)"
+        format='worstvideo+(bestaudio/140/251)'
     fi
 else
-    format="bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata"
+    format='bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata'
 fi
 
 
-if [[ $linktype -eq 1 ]]
+if [[ $link == */playlist?* ]]
 then
-    playlist="--no-playlist"
-    output='$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s'
-else
     playlist="--yes-playlist"
     output='$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s.%(ext)s'
+else
+    playlist="--no-playlist"
+    output='$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s'
 fi
 
 
