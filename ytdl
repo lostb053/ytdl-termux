@@ -25,20 +25,21 @@ Help()
     echo -e "${orange}A simple script written for easy downloading videos from YouTube using yt-dlp${e}"
     echo -e "${orange}version - ${e}${b}${green}v$v${e}  ${i}${cyan}Copyright (c) 2022 Lucky Jain${e}"
     echo
-    echo -e "${orange}USAGE:  ytdl [OPTIONS]${e}"
+    echo -e "${orange}USAGE:  ytdl [OPTIONS] [LINK] ${e}"
     echo
-    echo "ytdl        invokes the function, no required options"
+    echo "ytdl        invokes the function, does not require options or link"
     echo "-u          option to update this program"
     echo "-h          to print this help message"
     echo "-q          quiet mode, will show no progress, download quietly"
     echo "-a link     to download audio, no playlist links"
-    echo "-b link     download best video (with in-built audio) available, no playlist links"
-    echo "-s link     download audio(only) from youtube using metadata from any spotify link"
+    echo "-b link     download best video (with in-built audio)"
+    echo "            available, no playlist links"
+    echo "-s link     download audio from youtube using metadata"
+    echo "            from any spotify link"
     echo
     echo -e "${yellow}This command separately downloads best video and best audio available and merges them${e}"
     echo -e "${yellow}Use -b option to download video with in-built audio and avoid merging${e}"
     echo -e "${yellow}-s option supports spotify track, playlist, album and artist urls${e}"
-    echo -e "${yellow}-q option cannot be used with other flags${e}"
     echo -e "${yellow}Options -a, -b, -s require (single)link${e}"
 }
 
@@ -74,21 +75,23 @@ while getopts ":uqhb:a:" option; do
         h)
             Help
             exit;;
+        q)
+            quiet="-q"
         b)
             link=${OPTARG}
-            yt-dlp -f b --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-mtime --no-post-overwrites --geo-bypass --ignore-errors --no-playlist $link
+            yt-dlp $quiet -f b --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-mtime --no-post-overwrites --geo-bypass --ignore-errors --no-playlist $link
             exit;;
         a)
             link=${OPTARG}
-            yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-mtime --geo-bypass --ignore-errors --no-playlist $link
+            yt-dlp $quiet -f bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-mtime --geo-bypass --ignore-errors --no-playlist $link
             exit;;
         s)
             Spotcreds
             link=${OPTARGS}
             spotify_dl -l $link -s -w -k -o $EXTERNAL_STORAGE/YTDL
             exit;;
-        q)
-            quiet="-q"
+       \?)
+            echo -e "${red}Invalid option!!!${e}\n\n"
     esac
 done
 
