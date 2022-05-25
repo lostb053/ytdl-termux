@@ -76,7 +76,7 @@ while getopts ":uqhb:a:" option; do
             Help
             exit;;
         q)
-            quiet="-q"
+            quiet="-q";;
         b)
             link=${OPTARG}
             yt-dlp $quiet -f b --prefer-ffmpeg --output '$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s' --no-mtime --no-post-overwrites --geo-bypass --ignore-errors --no-playlist $link
@@ -91,7 +91,7 @@ while getopts ":uqhb:a:" option; do
             spotify_dl -l $link -s -w -k -o $EXTERNAL_STORAGE/YTDL
             exit;;
        \?)
-            echo -e "${red}Invalid option!!!${e}\n\n"
+            echo -e "${red}Invalid option!!!${e}\n\n";;
     esac
 done
 
