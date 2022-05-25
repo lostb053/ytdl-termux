@@ -61,7 +61,8 @@ Spotcreds()
         echo export SPOTIPY_CLIENT_ID=$CLIENT_ID >> $PREFIX/etc/zshrc
         echo export SPOTIPY_CLIENT_SECRET=$CLIENT_SECRET >> $PREFIX/etc/zshrc
         echo
-        echo -e "${green}Credentials saved successfully\nPlease exit app to use this feature{e}"
+        echo -e "${green}Credentials saved successfully\nPlease restart app to use this feature{e}"
+        exit
     fi
 }
 
