@@ -115,7 +115,7 @@ then
 fi
 
 echo
-echo "${yellow}Please enter the link below:${e}"
+echo -e "${yellow}Please enter the link below:${e}"
 echo
 read link
 
@@ -155,4 +155,4 @@ yt-dlp $quiet -f $format --prefer-ffmpeg --output $output --no-mtime --no-post-o
 
 echo
 echo
-echo "${green}Done${e}"
+echo -e "${green}Done${e}"
