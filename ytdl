@@ -67,8 +67,10 @@ Spotcreds()
 
 quiet=""
 
-while getopts ":uqhb:a:s:" option; do
+while getopts ":uUqhb:a:s:" option; do
     case $option in
+        U)
+            echo Forced update >> $PREFIX/etc/ytdlversion;;
         u)
             Update
             exit;;
@@ -121,7 +123,7 @@ read filetype
 if [[ $filetype -eq 1 ]]
 then
     echo
-    echo -e "${magenta}Select your preferred quality${e}\n\n1.Best\n2. High\n3. Medium\n4. Low"
+    echo -e "${magenta}Select your preferred quality${e}\n\n1. Best\n2. High\n3. Medium\n4. Low"
     echo
     read quality
 fi
