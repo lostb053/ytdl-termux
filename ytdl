@@ -70,8 +70,9 @@ quiet=""
 while getopts ":uUqhb:a:s:" option; do
     case $option in
         U)
-            echo Forced update >> $PREFIX/etc/ytdlversion;;
+            echo Forced update >> $PREFIX/etc/ytdlversion
             Update
+            exit;;
         u)
             Update
             exit;;
