@@ -14,6 +14,14 @@ shutt() {
 }
 
 
+initial_update() {
+    echo -e "${magenta}Updating local packages${e}"
+    sleep 3
+    shutt apt update -y 2> /dev/null
+    yes|shutt apt upgrade 2> /dev/null
+}
+
+
 downloadytdl() {
     echo -e "${yellow}Setting up required packages${e}"
     pip -qq install -U pip
@@ -29,12 +37,13 @@ downloadytdl() {
 
 
 installytdl() {
+    initial_update
     echo "Allow permission storage"
-    sleep 3
+    sleep 2
     termux-setup-storage
     shutt pkg install termux-api -y 2> /dev/null
     echo "Allow sceeen overlay"
-    sleep 3
+    sleep 2
     am start --user 0 -a android.settings.action.MANAGE_OVERLAY_PERMISSION -d "package:com.termux"
     echo -e "${orange}Installing Python3${e}"
     shutt pkg install python -y 2> /dev/null
@@ -46,6 +55,7 @@ installytdl() {
 
 
 updateytdl() {
+    initial_update
     rm $PREFIX/bin/ytdl
     rm $PREFIX/etc/ytdlversion
     rm ~/bin/termux-url-opener    
@@ -54,13 +64,13 @@ updateytdl() {
 }
 
 
-echo -e "${cyan}First time setup may take upto 5 minutes${e}"
-echo -e "${cyan}Depending on your internet speed, may take even longer${e}"
-echo
-echo -e "${magenta}Updating local packages${e}"
-sleep 3
-shutt apt update -y 2> /dev/null
-yes|shutt apt upgrade 2> /dev/null
+first_echo() {
+    echo -e "${cyan}First time setup may take upto 5 minutes${e}"
+    echo -e "${cyan}Depending on your internet speed, may take even longer${e}"
+    echo -e "${cyan}${b}Please wait for 2-3 minutes to permit app for file access and screen overlay${e}"
+    echo
+}
+
 
 if ! [[ -d ~/bin ]]
 then
@@ -73,6 +83,7 @@ then
     if ! [[ -f $PREFIX/etc/ytdlversion ]]
     then
         rm $PREFIX/bin/ytdl
+        first_echo
         installytdl
     else
         v=$(curl -fsSL https://bit.ly/ytdl-version)
@@ -81,9 +92,11 @@ then
         then
             updateytdl
         else
+            initial_update
             echo -e "${orange}Already Upto Date${e}"
         fi
     fi
 else
+    first_echo
     installytdl
 fi
