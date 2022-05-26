@@ -10,6 +10,7 @@
 
 # Installation
 * Install [Termux](https://f-droid.org/en/packages/com.termux/) app from F-Droid (Do not use playstore version)
+* Install [Termux:API](https://f-droid.org/en/packages/com.termux.api/)
 * For a better appeal/look on the app, install [Litmux](https://github.com/AvinashReddy3108/LitMux), simply follow the instructions
 * If you opt for Litmux, after running the installation cmd, exit the app by entering exit command, twice if it doesn't closes app after single try. You may later be prompt to setup Litmux, just answer the questions asked
 * Run the following command and wait till it's completed
