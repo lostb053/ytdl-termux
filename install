@@ -38,11 +38,15 @@ downloadytdl() {
 
 installytdl() {
     initial_update
-    echo "Allow permission storage"
+    echo
+    echo -e "${cyan}Allow permission storage${e}"
+    echo
     sleep 2
     termux-setup-storage
     shutt pkg install termux-api -y 2> /dev/null
-    echo "Allow sceeen overlay"
+    echo
+    echo -e "${cyan}Allow sceeen overlay${e}"
+    echo
     sleep 2
     am start --user 0 -a android.settings.action.MANAGE_OVERLAY_PERMISSION -d "package:com.termux"
     echo -e "${orange}Installing Python3${e}"
