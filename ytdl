@@ -76,6 +76,7 @@ while getopts ":uUFqhb:a:s:" option; do
             exit;;
         U)
             echo -e "${orange}Forcing Update${e}"
+            rm $PREFIX/etc/ytdlversion
             echo Forced update >> $PREFIX/etc/ytdlversion
             Update
             exit;;
