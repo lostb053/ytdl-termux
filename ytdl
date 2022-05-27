@@ -67,10 +67,15 @@ Spotcreds()
 
 quiet=""
 
-while getopts ":uUqhb:a:s:" option; do
+while getopts ":uUFqhb:a:s:" option; do
     case $option in
+        F)
+            echo -e "${orange}Forcing Full Update${e}"
+            rm $PREFIX/etc/ytdlversion
+            Update
+            exit;;
         U)
-            echo Forcing Update
+            echo -e "${orange}Forcing Update${e}"
             echo Forced update >> $PREFIX/etc/ytdlversion
             Update
             exit;;
