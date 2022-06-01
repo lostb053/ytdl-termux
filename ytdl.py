@@ -12,7 +12,7 @@ b="\e[1m"
 i="\e[3m"
 
 link = sys.argv[1]
-data = yt().extract_info(link, download=False)
+data = yt({'quiet': True}).extract_info(link, download=False)
 
 
 def get_resolutions(data: dict) -> list[list]:
