@@ -16,7 +16,7 @@ i="\e[3m"
 
 Update()
 {
-    bash -c "$(curl -fsSL https://bit.ly/install-ytdl-termux--advanced)"
+    bash -c "$(curl -fsSL https://bit.ly/install-ytdl-termux-advanced)"
 }
 
 
