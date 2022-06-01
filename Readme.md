@@ -15,7 +15,7 @@
 * If you opt for Litmux, after running the installation cmd, exit the app by entering exit command, twice if it doesn't closes app after single try. You may later be prompt to setup Litmux, just answer the questions asked
 * Run the following command, give permits and wait till it's completed
 ```
-bash -c "$(curl -fsSL https://bit.ly/install-ytdl-termux)"
+bash -c "$(curl -fsSL https://bit.ly/install-ytdl-termux-advanced)"
 ```
 <h3>Note: You don't need to go out of your way to install python, ffmpeg, etc on termux. The script installs everything</h3>
 
@@ -39,11 +39,7 @@ use -b option to download video with in-built audio and avoid merging
 Options -a, -b, -s require link
 
 # Selection of quality
-* Best - 8k, 4k
-* High - 2k, 1080p
-* Medium - 720p, 480p
-* Low - 360p, 240p, 144p
-* When Higher formats are unavailable, it automatically switches to lower one
+* Unlike in basic ytdl, you can select your preferred resolution
 
 <br>
 <a href="https://bit.ly/ytdl-sample-vid">ytdl plugin in action</a>

@@ -30,9 +30,10 @@ downloadytdl() {
     pip -qq install -U yt-dlp
     pip -qq install -U spotify-dl
     echo -e "${yellow}Finalizing process${e}"
-    curl -o $PREFIX/bin/ytdl -fsSL https://bit.ly/ytdl-main
-    curl -o $PREFIX/etc/ytdlversion -fsSL https://bit.ly/ytdl-version
-    curl -o ~/bin/termux-url-opener -fsSL https://bit.ly/ytdl-share
+    curl -o $PREFIX/bin/ytdl -fsSL https://bit.ly/ytdl-advanced
+    curl -o $PREFIX/etc/ytdlversion -fsSL https://bit.ly/ytdl-version-advanced
+    curl -o ~/bin/termux-url-opener -fsSL https://bit.ly/ytdl-share-advanced
+    curl -o ~/bin/ytdl.py -fsSL https://bit.ly/ytdl-py-advanced
     chmod +x $PREFIX/bin/ytdl
     chmod +x ~/bin/termux-url-opener
 }
@@ -65,6 +66,7 @@ updateytdl() {
     rm $PREFIX/bin/ytdl
     rm $PREFIX/etc/ytdlversion
     rm ~/bin/termux-url-opener
+    rm ~/bin/ytdl.py
     downloadytdl
     echo -e "${green}Updated successfully${e}"
 }
@@ -92,7 +94,7 @@ then
         first_echo
         installytdl
     else
-        v=$(curl -fsSL https://bit.ly/ytdl-version)
+        v=$(curl -fsSL https://bit.ly/ytdl-version-advanced)
         cv=$(sed -n '1p' $PREFIX/etc/ytdlversion)
         if ! [[ $v == $cv ]]
         then

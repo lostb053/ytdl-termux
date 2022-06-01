@@ -59,11 +59,13 @@ read filetype
 if [[ $filetype -eq 1 ]]
 then
     echo
-    echo -e "${magenta}Select your preferred quality${e}\n\n1. Best\n2. High\n3. Medium\n4. Low"
+    echo -e "${yellow}Getting available resolutions\nPlease wait for a while...${e}"
+    echo
+    python ~/bin/ytdl.py $link
+    bash print
     echo
     read quality
 fi
-
 
 echo
 echo -e "${yellow}Working on it\nPlease wait for a while...${e}"
@@ -73,22 +75,10 @@ echo
 
 if [[ $filetype -eq 1 ]]
 then
-    if [[ $quality -eq 1 ]]
-    then
-        format='(571/402/272/305/337/315/701/401/266/313/304/336/308/700/400/264/271/299/335/303/699/399/137/248/170/298/334/302/698/398/136/247/169/333/697/135/212/244/245/246/397/168/218/219/332/696/134/243/396/167/331/695/133/242/395/330/694/160/278/394)+(328/380338/258/327/256/141/251/bestaudio)'
-    elif [[ $quality -eq 2 ]]
-    then
-        format='(304/336/308/700/400/264/271/299/335/303/699/399/137/248/170/298/334/302/698/398/136/247/169/333/697/135/212/244/245/246/397/168/218/219/332/696/134/243/396/167/331/695/133/242/395/330/694/160/278/394)+(328/380338/258/327/256/141/251/bestaudio)'
-    elif [[ $quality -eq 3 ]]
-    then
-        format='(298/334/302/698/398/136/247/169/333/697/135/212/244/245/246/397/168/218/219/332/696/134/243/396/167/331/695/133/242/395/330/694/160/278/394)+(328/380338/258/327/256/141/251/bestaudio)'
-    else
-        format='(333/697/135/212/244/245/246/397/168/218/219/332/696/134/243/396/167/331/695/133/242/395/330/694/160/278/394)+(328/380338/258/327/256/141/251/bestaudio)'
-    fi
+    format=$(awk NR==$quality formats)+328/380338/258/327/256/141/251/bestaudio
 else
     format='328/380338/258/327/256/141/251/bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata'
 fi
-
 
 if [[ $link == */playlist?* ]]
 then
