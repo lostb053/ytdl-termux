@@ -11,7 +11,7 @@ e="\e[0m"
 b="\e[1m"
 i="\e[3m"
 
-link = sys.argv[0]
+link = sys.argv[1]
 data = yt().extract_info(link, download=False)
 
 
@@ -45,7 +45,7 @@ def create_output_files(res_with_max_br: list[list]):
     for i in formats:
         out += "\n"
         n = n+1
-        out += f"""echo -e \"{n}. {yellow}{i[2]['height']}p{e}, {orange}{i[1]} kbit/s, {i[2]['vcodec']}{e}{f", {magenta}{i[2]['acodec']}, {i[2]['acodec']}{e}" if i[2]['acodec'] != 'none' else ''}\""""
+        out += f"""echo -e \"{n}. {yellow}{i[2]['height']}p{e}, {orange}{i[1]} kbit/s, {i[2]['vcodec']}{e}{f", {magenta}{i[2]['acodec']}{e}" if i[2]['acodec'] != 'none' else ''}\""""
         format_id += i[2]['format_id']+"\n"
     with open("print", "x") as file:
         file.write(out)
