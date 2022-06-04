@@ -170,14 +170,14 @@ fi
 if [[ $link == */playlist?* ]]
 then
     playlist="--yes-playlist"
-    output='$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s.%(ext)s'
+    output='$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s - %(format_note)s.%(ext)s'
 else
     playlist="--no-playlist"
-    output='$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s'
+    output='$EXTERNAL_STORAGE/YTDL/%(title)s - %(format_note)s.%(ext)s'
 fi
 
 
-yt-dlp $quiet -f $format --prefer-ffmpeg --output $output --no-mtime --no-post-overwrites --geo-bypass --ignore-errors $playlist $link
+yt-dlp $quiet -f $format --prefer-ffmpeg --output "$output" --no-mtime --no-post-overwrites --geo-bypass --ignore-errors $playlist $link
 
 echo
 echo
