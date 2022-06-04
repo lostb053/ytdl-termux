@@ -39,7 +39,6 @@ downloadytdl() {
 
 
 installytdl() {
-    initial_update
     echo
     echo -e "${cyan}Allow permission storage${e}"
     echo
@@ -50,7 +49,8 @@ installytdl() {
     echo -e "${cyan}Allow sceeen overlay${e}"
     echo
     sleep 2
-    am start --user 0 -a android.settings.action.MANAGE_OVERLAY_PERMISSION -d "package:com.termux"
+    shutt am start --user 0 -a android.settings.action.MANAGE_OVERLAY_PERMISSION -d "package:com.termux" 2> /dev/null
+    initial_update
     echo -e "${orange}Installing Python3${e}"
     shutt pkg install python -y 2> /dev/null
     echo -e "${orange}Installing FFMPEG${e}"
