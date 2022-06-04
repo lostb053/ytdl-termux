@@ -58,11 +58,18 @@ read filetype
 
 if [[ $filetype -eq 1 ]]
 then
+    if [[ -f print ]]
+    then
+        rm print
+        rm formats
+    fi
     echo
     echo -e "${yellow}Getting available resolutions\nPlease wait for a while...${e}"
     echo
     python ~/bin/ytdl.py $link
     bash print
+    echo
+    echo -e "${yellow}Please enter the Sr.N of your desired format${e}"
     echo
     read quality
 fi
@@ -75,18 +82,19 @@ echo
 
 if [[ $filetype -eq 1 ]]
 then
-    format=$(awk NR==$quality formats)+328/380338/258/327/256/141/251/bestaudio
+    format=$(awk NR==$quality formats)
 else
-    format='328/380338/258/327/256/141/251/bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata'
+    format='328/380/338/258/327/256/141/251/bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata'
 fi
+
 
 if [[ $link == */playlist?* ]]
 then
     playlist="--yes-playlist"
-    output='$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s.%(ext)s'
+    output='$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s - %(format_note)s.%(ext)s'
 else
     playlist="--no-playlist"
-    output='$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s'
+    output='$EXTERNAL_STORAGE/YTDL/%(title)s - %(format_note)s.%(ext)s'
 fi
 
 rm print

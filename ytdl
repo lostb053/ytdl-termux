@@ -170,10 +170,10 @@ fi
 if [[ $link == */playlist?* ]]
 then
     playlist="--yes-playlist"
-    output='$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s.%(ext)s'
+    output='$EXTERNAL_STORAGE/YTDL/%(playlist_index)s.%(title)s - %(format_note)s.%(ext)s'
 else
     playlist="--no-playlist"
-    output='$EXTERNAL_STORAGE/YTDL/%(title)s.%(ext)s'
+    output='$EXTERNAL_STORAGE/YTDL/%(title)s - %(format_note)s.%(ext)s'
 fi
 
 rm print
