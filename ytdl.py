@@ -62,7 +62,7 @@ def create_output_files(res_with_max_br: list[list[list]]):
     for i in formats:
         out += "\n"
         n = n+1
-        out += f"""echo -e \"{n}. {yellow}{i[2]['height']}p{e}, {orange}{i[1]} kbit/s, {i[2]['vcodec']}{e}{f", {magenta}{i[2]['acodec']}{e}" if i[2]['acodec'] != 'none' else ''}, {yellow}{str(round(int(i[2]['filesize'])/1024/1024+audio_size), 2)+' MB' if i[2]['filesize'] != 'none' else 'N/A'}{e}\"\nsleep 0.3"""
+        out += f"""echo -e \"{n}. {yellow}{i[2]['height']}p{e}, {orange}{i[1]} kbit/s, {i[2]['vcodec']}{e}{f", {magenta}{i[2]['acodec']}{e}" if i[2]['acodec'] != 'none' else ''}, {yellow}{str(round(int(i[2]['filesize'])/1024/1024+audio_size, 2))+' MB' if i[2]['filesize'] != 'none' else 'N/A'}{e}\"\nsleep 0.3"""
         format_id += f"({i[2]['format_id']})+({audio_format})\n"
     with open(HOME+"/print", "x") as file:
         file.write(out)
