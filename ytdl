@@ -178,7 +178,7 @@ fi
 
 rm print
 rm formats
-yt-dlp $quiet -f "$format" --prefer-ffmpeg --output $output --no-mtime --no-post-overwrites --geo-bypass --ignore-errors $playlist $link
+yt-dlp $quiet -f $format --prefer-ffmpeg --output "$output" --no-mtime --no-post-overwrites --geo-bypass --ignore-errors $playlist $link
 
 echo
 echo
