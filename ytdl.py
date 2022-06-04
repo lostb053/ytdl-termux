@@ -42,11 +42,12 @@ def create_output_files(res_with_max_br: list[list]):
     n = 0
     format_id = ""
     out = f"""echo -e \"Sr.N. {yellow}Resolution{e}, {orange}Video Data{e}, {magenta}Audio Data{e}\""""
+    audio_formats = "328/380/338/258/327/256/141/251/bestaudio"
     for i in formats:
         out += "\n"
         n = n+1
         out += f"""echo -e \"{n}. {yellow}{i[2]['height']}p{e}, {orange}{i[1]} kbit/s, {i[2]['vcodec']}{e}{f", {magenta}{i[2]['acodec']}{e}" if i[2]['acodec'] != 'none' else ''}\"\nsleep 0.3"""
-        format_id += i[2]['format_id']+"\n"
+        format_id += f"({i[2]['format_id']})+{audio_formats}\n"
     with open("print", "x") as file:
         file.write(out)
     with open("formats", "x") as file:
