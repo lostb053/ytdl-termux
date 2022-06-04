@@ -47,7 +47,7 @@ def create_output_files(res_with_max_br: list[list]):
         out += "\n"
         n = n+1
         out += f"""echo -e \"{n}. {yellow}{i[2]['height']}p{e}, {orange}{i[1]} kbit/s, {i[2]['vcodec']}{e}{f", {magenta}{i[2]['acodec']}{e}" if i[2]['acodec'] != 'none' else ''}\"\nsleep 0.3"""
-        format_id += f"({i[2]['format_id']})+{audio_formats}\n"
+        format_id += f"({i[2]['format_id']})+({audio_formats})\n"
     with open("print", "x") as file:
         file.write(out)
     with open("formats", "x") as file:
