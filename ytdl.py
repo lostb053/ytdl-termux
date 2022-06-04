@@ -1,3 +1,4 @@
+import os
 import sys
 from yt_dlp import YoutubeDL as yt
 
@@ -11,9 +12,9 @@ e="\e[0m"
 b="\e[1m"
 i="\e[3m"
 
-link = "Pv56oBAfRhY"
+link = sys.argv[1]
 data = yt({'quiet': True}).extract_info(link, download=False)
-
+HOME = os.getenv("HOME")
 
 def get_resolutions(data: dict) -> list[list]:
     resolutions: list[list[str]] = []
@@ -63,9 +64,9 @@ def create_output_files(res_with_max_br: list[list[list]]):
         n = n+1
         out += f"""echo -e \"{n}. {yellow}{i[2]['height']}p{e}, {orange}{i[1]} kbit/s, {i[2]['vcodec']}{e}{f", {magenta}{i[2]['acodec']}{e}" if i[2]['acodec'] != 'none' else ''}, {yellow}{str(round(int(i[2]['filesize'])/1024/1024+audio_size), 2)+' MB' if i[2]['filesize'] != 'none' else 'N/A'}{e}\"\nsleep 0.3"""
         format_id += f"({i[2]['format_id']})+({audio_format})\n"
-    with open("print", "x") as file:
+    with open(HOME+"/print", "x") as file:
         file.write(out)
-    with open("formats", "x") as file:
+    with open(HOME+"/formats", "x") as file:
         file.write(format_id)
 
 
