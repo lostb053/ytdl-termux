@@ -73,7 +73,7 @@ updateytdl() {
 first_echo() {
     echo -e "${cyan}First time setup may take upto 5 minutes${e}"
     echo -e "${cyan}Depending on your internet speed, may take even longer${e}"
-    echo -e "${cyan}${b}Please wait for 2-3 minutes to permit app for file access and screen overlay${e}"
+    echo -e "${cyan}${b}Please permit app for file access and screen overlay${e}"
     echo
 }
 
