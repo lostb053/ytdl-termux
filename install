@@ -34,7 +34,7 @@ downloadytdl() {
     curl -o $PREFIX/bin/ytdl -fsSL https://bit.ly/ytdl-geek-edition
     curl -o $PREFIX/etc/ytdlversion -fsSL https://bit.ly/ytdl-version-geek-edition
     curl -o ~/bin/termux-url-opener -fsSL https://bit.ly/ytdl-share-geek-edition
-    curl -o ~/bin/ytdl.py -fsSL https://bit.ly/ytdl-py-geek-edition
+    curl -o ~/bin/ytdl.py -fsSL https://bit.ly/ytdlpy-geek-edition
     chmod +x $PREFIX/bin/ytdl
     chmod +x ~/bin/termux-url-opener
 }
