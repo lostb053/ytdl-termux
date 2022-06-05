@@ -153,6 +153,7 @@ then
     echo -e "${yellow}Please enter the Sr.N of your desired video format${e}"
     echo
     read video_selection
+    echo
     bash ~/print_aud_data
     echo
     echo -e "${yellow}Please enter the Sr.N of your desired audio format${e}"
