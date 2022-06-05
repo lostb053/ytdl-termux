@@ -27,21 +27,21 @@ def create_output_files(data: dict):
             audio_formats.append(i)
 
     n = 0
-    video_output = f"""echo -e \"Sr.N. {yellow}Resolution{e}, {orange}Video Data{e}, {magenta}Audio Data{e}, {yellow}File Size{e}\""""
+    video_output = f"""echo -e \"Sr.N. {yellow}Resolution{e}, {orange}Video Data{e}, {magenta}Audio Data{e}, {yellow}File Size & Protocol{e}\""""
     video_format_id = ""
     for i in video_formats:
         video_output += "\n"
         n = n+1
-        video_output += f"""echo -e \"{n}. {yellow}{i['height']}p{e}, {orange}{i['vbr']} kbit/s, {i['vcodec']}{e}{f", {magenta}{i['acodec']}{e}" if i['acodec'] != 'none' else ''}, {yellow}{str(round(int(i['filesize'])/1024/1024, 2))+' MB' if i['filesize'] != 'none' else 'N/A'}{e}\"\nsleep 0.3"""
+        video_output += f"""echo -e \"{n}. {yellow}{i['height']}p{f' ({i["fps"]})' if 'fps' in i.keys() and i['fps']>50 else ''}{e}, {orange}{i['vbr']} kbit/s, {i['vcodec']}{e}{f", {magenta}{i['acodec']}{e}" if i['acodec'] != 'none' else ''}, {yellow}{str(round(int(i['filesize'])/1024/1024, 2))+' MB' if i['filesize'] else 'N/A'}, {i['protocol']}{e}\"\nsleep 0.3"""
         video_format_id += f"({i['format_id']})\n"
 
     n = 0
-    audio_output = f"""echo -e \"Sr.N. {yellow}Bitrate{e}, {orange}Sampling Rate{e}, {magenta}Codec{e}, {yellow}File Size{e}\""""
+    audio_output = f"""echo -e \"Sr.N. {yellow}Bitrate{e}, {orange}Sampling Rate{e}, {magenta}Codec{e}, {yellow}File Size & Protocol{e}\""""
     audio_format_id = ""
     for i in audio_formats:
         audio_output += "\n"
         n = n+1
-        audio_output += f"""echo -e \"{n}. {yellow}{i['abr']} kbit/s{e}, {orange}{i['asr']} Hz{e}, {magenta}{i['acodec']}{e}, {yellow}{str(round(int(i['filesize'])/1024/1024, 2))+' MB' if i['filesize'] != 'none' else 'N/A'}{e}\"\nsleep 0.3"""
+        audio_output += f"""echo -e \"{n}. {yellow}{i['abr']} kbit/s{e}, {orange}{i['asr']} Hz{e}, {magenta}{i['acodec']}{e}, {yellow}{str(round(int(i['filesize'])/1024/1024, 2))+' MB' if i['filesize'] else 'N/A'}, {i['protocol']}{e}\"\nsleep 0.3"""
         audio_format_id += f"({i['format_id']})\n"
 
     with open(HOME+"/print_vid_data", "x") as file:
