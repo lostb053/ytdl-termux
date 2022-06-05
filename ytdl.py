@@ -32,7 +32,7 @@ def create_output_files(data: dict):
     for i in video_formats:
         video_output += "\n"
         n = n+1
-        video_output += f"""echo -e \"{n}. {yellow}{i['height']}p{f' ({i["fps"]})' if 'fps' in i.keys() and i['fps']>50 else ''}{e}, {orange}{i['vbr']} kbit/s, {i['vcodec']}{e}{f", {magenta}{i['acodec']}{e}" if i['acodec'] != 'none' else ''}, {yellow}{str(round(int(i['filesize'])/1024/1024, 2))+' MB' if i['filesize'] else 'N/A'}, {i['protocol']}{e}\"\nsleep 0.3"""
+        video_output += f"""echo -e \"{n}. {yellow}{i['height']}p{f' ({i["fps"]} fps)' if 'fps' in i.keys() and i['fps']>50 else ''}{e}, {orange}{i['vbr']} kbit/s, {i['vcodec']}{e}{f", {magenta}{i['acodec']}{e}" if i['acodec'] != 'none' else ''}, {yellow}{str(round(int(i['filesize'])/1024/1024, 2))+' MB' if i['filesize'] else 'N/A'}, {i['protocol']}{e}\"\nsleep 0.3"""
         video_format_id += f"({i['format_id']})\n"
 
     n = 0
