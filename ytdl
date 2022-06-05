@@ -176,8 +176,12 @@ else
     output='$EXTERNAL_STORAGE/YTDL/%(title)s - %(format_note)s.%(ext)s'
 fi
 
-rm print
-rm formats
+
+if [[ $filetype -eq 1 ]]
+then
+    rm print
+    rm formats
+fi
 yt-dlp $quiet -f $format --prefer-ffmpeg --output "$output" --no-mtime --no-post-overwrites --geo-bypass --ignore-errors $playlist $link
 
 echo
