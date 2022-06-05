@@ -176,6 +176,7 @@ else
     output='$EXTERNAL_STORAGE/YTDL/%(title)s - %(format_note)s.%(ext)s'
 fi
 
+
 if [[ $filetype -eq 1 ]]
 then
     rm print
