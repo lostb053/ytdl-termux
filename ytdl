@@ -137,16 +137,16 @@ read link
 
 if [[ $filetype -eq 1 ]]
 then
-    if [[ -f print ]]
+    if [[ -f ~/print ]]
     then
-        rm print
-        rm formats
+        rm ~/print
+        rm ~/formats
     fi
     echo
     echo -e "${yellow}Getting available resolutions\nPlease wait for a while...${e}"
     echo
     python ~/bin/ytdl.py $link
-    bash print
+    bash ~/print
     echo
     echo -e "${yellow}Please enter the Sr.N of your desired format${e}"
     echo
@@ -161,7 +161,7 @@ echo
 
 if [[ $filetype -eq 1 ]]
 then
-    format=$(awk NR==$quality formats)
+    format=$(awk NR==$quality ~/formats)
 else
     format='328/380/338/258/327/256/141/251/bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata'
 fi
