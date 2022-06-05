@@ -7,6 +7,7 @@ orange="\e[34m"
 magenta="\e[35m"
 cyan="\e[36m"
 e="\e[0m"
+b="\e[1m" 
 
 
 shutt() {
@@ -41,13 +42,13 @@ downloadytdl() {
 
 installytdl() {
     echo
-    echo -e "${cyan}Allow permission storage${e}"
+    echo -e "${cyan}Allow storage permission${e}"
     echo
     sleep 2
     termux-setup-storage
     shutt pkg install termux-api -y 2> /dev/null
     echo
-    echo -e "${cyan}Allow sceeen overlay${e}"
+    echo -e "${cyan}Allow sceeen overlay permission${e}"
     echo
     sleep 2
     shutt am start --user 0 -a android.settings.action.MANAGE_OVERLAY_PERMISSION -d "package:com.termux" 2> /dev/null

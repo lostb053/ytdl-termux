@@ -137,20 +137,27 @@ read link
 
 if [[ $filetype -eq 1 ]]
 then
-    if [[ -f ~/print ]]
+    if [[ -f ~/print_vid_data ]]
     then
-        rm ~/print
-        rm ~/formats
+        rm ~/print_vid_data
+        rm ~/vid_formats
+        rm ~/print_aud_data
+        rm ~/aud_formats
     fi
     echo
     echo -e "${yellow}Getting available resolutions\nPlease wait for a while...${e}"
     echo
     python ~/bin/ytdl.py $link
-    bash ~/print
+    bash ~/print_vid_data
     echo
-    echo -e "${yellow}Please enter the Sr.N of your desired format${e}"
+    echo -e "${yellow}Please enter the Sr.N of your desired video format${e}"
     echo
-    read quality
+    read video_selection
+    bash ~/print_aud_data
+    echo
+    echo -e "${yellow}Please enter the Sr.N of your desired audio format${e}"
+    echo
+    read audio_selection
 fi
 
 echo
@@ -161,7 +168,7 @@ echo
 
 if [[ $filetype -eq 1 ]]
 then
-    format=$(awk NR==$quality ~/formats)
+    format=$(awk NR==$video_selection ~/vid_formats)+$(awk NR==$audio_selection ~/aud_formats)
 else
     format='328/380/338/258/327/256/141/251/bestaudio --extract-audio --audio-format mp3 --audio-quality 320k --embed-thumbnail --add-metadata'
 fi
@@ -179,8 +186,10 @@ fi
 
 if [[ $filetype -eq 1 ]]
 then
-    rm print
-    rm formats
+    rm ~/print_vid_data
+    rm ~/vid_formats
+    rm ~/print_aud_data
+    rm ~/aud_formats
 fi
 yt-dlp $quiet -f $format --prefer-ffmpeg --output "$output" --no-mtime --no-post-overwrites --geo-bypass --ignore-errors $playlist $link
 
