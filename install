@@ -67,7 +67,10 @@ updateytdl() {
     rm $PREFIX/bin/ytdl
     rm $PREFIX/etc/ytdlversion
     rm ~/bin/termux-url-opener
-    rm ~/bin/ytdl.py
+    if [[ -f ~/bin/ytdl.py ]]
+    then
+        rm ~/bin/ytdl.py
+    fi
     downloadytdl
     echo -e "${green}Updated successfully${e}"
 }
