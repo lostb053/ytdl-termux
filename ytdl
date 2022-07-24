@@ -143,6 +143,7 @@ then
         rm ~/vid_formats
         rm ~/print_aud_data
         rm ~/aud_formats
+        rm ~/print_sub_data
     fi
     echo
     echo -e "${yellow}Getting available resolutions\nPlease wait for a while...${e}"
@@ -159,6 +160,30 @@ then
     echo -e "${yellow}Please enter the Sr.N of your desired audio format${e}"
     echo
     read audio_selection
+    subtitle_selection=""
+    if [[ -f ~/print_sub_data ]]
+    then
+        echo
+        bash ~/print_sub_data
+        echo
+        echo -e "${yellow}Please type the language codes of your desired subtitle languages (separate them by commas if multiple, example: ${e}${cyan}de, ja${e}${yellow})\nEnter none for no subtitles${e}"
+        echo
+        read subtitle_choices
+        typeset -l subtitle_choices
+        if ! [[ subtitle_choices=="none" ]]
+            echo
+            echo -e "${yellow}Do you wish to embed subtitles within the video (in-built soft subs) [y/n]:${e} "
+            read embed_selection
+            typeset -l embed_selection
+            if [[ embed_selection=="y" ]]
+            then
+                embed_subs="--embed-subs"
+            else
+                embed_subs="--no-embed-subs"
+            fi
+            subtitle_selection="--write-subs --sub-format srt/vtt/best --sub-langs ${subtitle_choices} ${embed_subs}"
+        fi
+    fi
 fi
 
 echo
@@ -191,8 +216,9 @@ then
     rm ~/vid_formats
     rm ~/print_aud_data
     rm ~/aud_formats
+    rm ~/print_sub_data
 fi
-yt-dlp $quiet -f $format --prefer-ffmpeg --output "$output" --no-mtime --no-post-overwrites --geo-bypass --ignore-errors $playlist $link
+yt-dlp $quiet -f $format --prefer-ffmpeg --output "$output" $subtitle_selection --no-mtime --no-post-overwrites --geo-bypass --ignore-errors $playlist $link
 
 echo
 echo
