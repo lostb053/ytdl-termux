@@ -46,7 +46,7 @@ def create_output_files(data: dict):
         subtitles_list = data['subtitles'].keys()
         subtitle_output = f"""echo -e \"{yellow}List of available subtitles{e}\"\nsleep 0.3\n"""
         for i in list(subtitles_list):
-            subtitle_output += f"""echo -e \"{cyan}{i}{e}{' '*(12 - len(i))}{data['subtitles'][i][0]['name']}\"\nsleep0.3\n"""
+            subtitle_output += f"""echo -e \"{cyan}{i}{e}{' '*(12 - len(i))}{data['subtitles'][i][0]['name']}\"\nsleep 0.3\n"""
         with open(HOME+"/print_sub_data", "x") as file:
             file.write(subtitle_output)
     except KeyError:
