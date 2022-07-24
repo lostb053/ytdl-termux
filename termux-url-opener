@@ -92,6 +92,7 @@ then
         read subtitle_choices
         typeset -l subtitle_choices
         if ! [[ subtitle_choices=="none" ]]
+        then
             echo
             echo -e "${yellow}Do you wish to embed subtitles within the video (in-built soft subs) [y/n]:${e} "
             read embed_selection
