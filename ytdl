@@ -182,7 +182,7 @@ then
             else
                 embed_subs="--no-embed-subs"
             fi
-            subtitle_selection="--write-subs --sub-format srt/vtt/best --sub-langs \"${subtitle_choices}\" ${embed_subs}"
+            subtitle_selection="--write-subs --sub-format srt/vtt/best --sub-langs '${subtitle_choices}' ${embed_subs}"
         fi
     fi
 fi
@@ -219,7 +219,7 @@ then
     rm ~/aud_formats
     rm ~/print_sub_data
 fi
-yt-dlp $quiet -f $format --prefer-ffmpeg --output "$output" $subtitle_selection --no-mtime --no-post-overwrites --geo-bypass --ignore-errors $playlist $link
+yt-dlp $quiet -f \"$format\" --prefer-ffmpeg --output \"$output\" $subtitle_selection --no-mtime --no-post-overwrites --geo-bypass --ignore-errors $playlist $link
 
 echo
 echo
